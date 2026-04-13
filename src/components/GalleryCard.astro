@@ -1,0 +1,32 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+	title: string;
+	slug: string;
+	description?: string;
+	cover?: ImageMetadata;
+}
+
+const { title, slug, cover } = Astro.props;
+---
+
+<a href={`/gallery/${slug}`} class="group block">
+	<div class="aspect-3/4 overflow-hidden bg-neutral-100 mb-3">
+		{cover ? (
+			<Image
+				src={cover}
+				alt={title}
+				widths={[400, 800]}
+				sizes="(max-width: 768px) 100vw, 50vw"
+				class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+			/>
+		) : (
+			<div class="w-full h-full flex items-center justify-center text-neutral-300 text-sm">
+				No photos yet
+			</div>
+		)}
+	</div>
+	<h2 class="text-sm font-medium">{title}</h2>
+</a>

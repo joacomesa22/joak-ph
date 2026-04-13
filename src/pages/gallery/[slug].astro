@@ -1,0 +1,37 @@
+---
+import type { ImageMetadata } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import PhotoGrid from '../../components/PhotoGrid.astro';
+import Lightbox from '../../components/Lightbox.astro';
+import { galleries } from '../../data/galleries';
+
+export function getStaticPaths() {
+	return galleries.map(g => ({ params: { slug: g.slug } }));
+}
+
+const { slug } = Astro.params;
+const gallery = galleries.find(g => g.slug === slug)!;
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/portfolio/**/*.{jpg,jpeg,png,webp}', { eager: true });
+const prefix = `/src/assets/portfolio/${slug}/`;
+const images = Object.entries(allImages)
+	.filter(([path]) => path.startsWith(prefix))
+	.sort(([a], [b]) => a.localeCompare(b))
+	.map(([, mod]) => mod.default);
+---
+
+<Layout title={`${gallery.title} — joak.ph`}>
+	<section class="px-6 md:px-12 py-12 ">
+		<a href="/work" class="text-sm text-neutral-400 hover:text-neutral-900 transition-colors">&larr; Back</a>
+		<h1 class="text-2xl md:text-3xl font-medium tracking-tight mt-4 mb-12">{gallery.title}</h1>
+
+		{images.length > 0 ? (
+			<>
+				<PhotoGrid images={images} />
+				<Lightbox images={images} />
+			</>
+		) : (
+			<p class="text-neutral-300 text-sm">No photos in this gallery yet.</p>
+		)}
+	</section>
+</Layout>
