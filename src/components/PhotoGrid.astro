@@ -9,10 +9,10 @@ interface Props {
 const { images } = Astro.props;
 ---
 
-<div class="columns-1 sm:columns-2 lg:columns-3 gap-1 space-y-1">
+<div class="columns-1 sm:columns-2 lg:columns-3 gap-1 space-y-1 max-w-300 mx-auto">
 	{images.map((img, i) => (
 		<button
-			class="block w-full break-inside-avoid cursor-zoom-in overflow-hidden"
+			class="block w-full break-inside-avoid cursor-pointer overflow-hidden"
 			data-lightbox-trigger
 			data-index={i}
 		>

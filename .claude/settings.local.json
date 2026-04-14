@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv l.jpg m.jpg)",
+      "Bash(mv k.jpg l.jpg)",
+      "Bash(mv j.jpg k.jpg)",
+      "Bash(mv i.jpg j.jpg)",
+      "Bash(mv h.jpg i.jpg)"
+    ]
+  }
+}

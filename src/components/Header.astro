@@ -1,28 +1,25 @@
 ---
-interface Props {
-	dark?: boolean;
-}
+import ThemeToggle from './ThemeToggle.astro';
 
-const { dark = false } = Astro.props;
 const currentPath = Astro.url.pathname;
-const textColor = dark ? 'text-white/60' : 'text-neutral-500';
-const activeColor = dark ? 'text-white' : 'text-neutral-900';
-const hoverColor = dark ? 'hover:text-white' : 'hover:text-neutral-900';
 ---
 
 <header class="px-6 md:px-12 py-6 flex items-center justify-between relative z-10">
-	<a href="/" class:list={["text-lg font-medium tracking-tight hover:opacity-70 transition-opacity", dark ? "text-white" : "text-neutral-900"]}>
-		joak.ph
+	<a href="/" class="text-neutral-900 dark:text-white hover:opacity-70 transition-opacity" aria-label="joak.ph home">
+		<svg class="w-[50px]" viewBox="0 0 282 151" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M130.77 8.26245V97.7468L129.048 98.4089L6.33398 145.606L2.68555 147.01V55.4597H36.374V97.8826L97.0801 75.1619V8.26245H130.77ZM278.389 146.826L274.854 145.648L246.536 136.209L244.7 135.596V76.7205L215.924 97.6042L214.355 98.7419L212.781 97.613L183.993 76.9675V135.596L182.157 136.209L153.839 145.648L150.305 146.826V5.5144L154.62 8.81421L214.713 54.7566L274.06 8.82397L278.389 5.47339V146.826Z" fill="currentColor" stroke="currentColor" stroke-width="5.37005"/>
+		</svg>
 	</a>
-	<nav class:list={["flex gap-6 text-sm", textColor]}>
-		<a href="/work" class:list={[hoverColor, "transition-colors", { [activeColor]: currentPath.startsWith("/work") || currentPath.startsWith("/gallery") }]}>
-			Work
+	<nav class="flex gap-6 text-sm items-center text-neutral-500 dark:text-neutral-400">
+		<a
+			href="/travel"
+			class:list={[
+				"hover:text-neutral-900 dark:hover:text-white transition-colors",
+				{ "text-neutral-900 dark:text-white": currentPath.startsWith("/travel") || currentPath.startsWith("/gallery") }
+			]}
+		>
+			Travel
 		</a>
-		<a href="/about" class:list={[hoverColor, "transition-colors", { [activeColor]: currentPath === "/about" }]}>
-			About
-		</a>
-		<a href="/contact" class:list={[hoverColor, "transition-colors", { [activeColor]: currentPath === "/contact" }]}>
-			Contact
-		</a>
+		<ThemeToggle />
 	</nav>
 </header>
