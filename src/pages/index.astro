@@ -32,11 +32,11 @@ const images = Object.entries(featuredImages)
 			<div id="hero-swiper" class="swiper w-full h-full">
 				<div class="swiper-wrapper">
 					{images.map((img) => (
-						<div class="swiper-slide w-auto! h-full">
+						<div class="swiper-slide w-[88vw]! md:w-auto! h-full">
 							<img
 								src={img.src}
 								alt=""
-								class="h-full w-auto object-cover"
+								class="h-full w-full md:w-auto object-cover"
 							/>
 						</div>
 					))}
