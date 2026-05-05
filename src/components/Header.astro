@@ -1,7 +1,16 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import { galleries } from '../data/galleries';
 
 const currentPath = Astro.url.pathname;
+
+const galleryMatch = currentPath.match(/^\/gallery\/([^/]+)/);
+const activeGallerySection = galleryMatch
+	? galleries.find(g => g.slug === galleryMatch[1])?.section
+	: null;
+
+const isTravelActive = currentPath.startsWith('/travel') || activeGallerySection === 'travel';
+const isSportsActive = currentPath.startsWith('/sports') || activeGallerySection === 'sports';
 ---
 
 <header class="px-6 md:px-12 py-6 flex items-center justify-between relative z-10">
@@ -15,10 +24,19 @@ const currentPath = Astro.url.pathname;
 			href="/travel"
 			class:list={[
 				"hover:text-neutral-900 dark:hover:text-white transition-colors",
-				{ "text-neutral-900 dark:text-white": currentPath.startsWith("/travel") || currentPath.startsWith("/gallery") }
+				{ "text-neutral-900 dark:text-white": isTravelActive }
 			]}
 		>
 			Travel
+		</a>
+		<a
+			href="/sports"
+			class:list={[
+				"hover:text-neutral-900 dark:hover:text-white transition-colors",
+				{ "text-neutral-900 dark:text-white": isSportsActive }
+			]}
+		>
+			Sports
 		</a>
 		<ThemeToggle />
 	</nav>
